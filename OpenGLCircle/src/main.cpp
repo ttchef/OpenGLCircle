@@ -8,6 +8,7 @@
 
 #include "glad\glad.h"
 #include "GLFW\glfw3.h"
+#include "../../mefGL/mefGL.h"
 
 #include "glm/glm.hpp"
 #include "glm\gtc\matrix_transform.hpp"
@@ -29,13 +30,12 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	conf::HEIGHT = height;
 	conf::aspectRatio = static_cast<float>(conf::WIDTH) / conf::HEIGHT;
 
-
 }
 
 int main()
 {
 	GLFWwindow* window;
-
+	
 	if (!glfwInit())
 	{
 		std::cerr << "[ERROR] Failed initializing GLFW!\n";
