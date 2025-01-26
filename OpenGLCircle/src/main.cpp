@@ -9,15 +9,27 @@
 #include "glad\glad.h"
 #include "GLFW\glfw3.h"
 
+#include "glm/glm.hpp"
+#include "glm\gtc\matrix_transform.hpp"
+#include "glm\gtc\type_ptr.hpp"
+
 namespace conf
 {
-	const int WIDTH = 800;
-	const int HEIGHT = 600;
+	int WIDTH = 800;
+	int HEIGHT = 600;
+	float aspectRatio = WIDTH / HEIGHT;
+
+	
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+	conf::WIDTH = width;
+	conf::HEIGHT = height;
+	conf::aspectRatio = static_cast<float>(conf::WIDTH) / conf::HEIGHT;
+
+
 }
 
 int main()
@@ -56,11 +68,16 @@ int main()
 	// OPENGL Settings
 	glViewport(0, 0, conf::WIDTH, conf::HEIGHT);
 
+	float width = 0.5f;
+	float height = 0.5f;
+	glm::vec2 pos = glm::vec2(0.0f, 0.0f);
+	float radius = 0.5f;
+
 	float vertices[] = {
-		-0.5f, -0.5f, 0.0f,
-		-0.5f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f
+		-width, -height, 0.0f,
+		-width, height, 0.0f,
+		width, -height, 0.0f,
+		width, height, 0.0f
 	};
 
 	unsigned int indices[]{
@@ -162,17 +179,34 @@ int main()
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
+	glm::mat4 model = glm::mat4(1.0f);
+
+	glm::mat4 projection = glm::ortho(-1.0f * conf::aspectRatio, 1.0f * conf::aspectRatio, -1.0f, 1.0f, -1.0f, 1.0f);
+	auto projLoc = glGetUniformLocation(shader, "u_proj");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glUseProgram(shader);
+
+		glm::mat4 projection = glm::ortho(-1.0f * conf::aspectRatio, 1.0f * conf::aspectRatio, -1.0f, 1.0f, -1.0f, 1.0f);
+		auto projLoc = glGetUniformLocation(shader, "u_proj");
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
-
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
 	}
 
 	glfwTerminate();
