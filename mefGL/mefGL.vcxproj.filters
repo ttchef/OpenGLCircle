@@ -24,5 +24,20 @@
     <ClInclude Include="src\core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\rect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\mefUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\BasicShader.vert" />
+    <None Include="src\BasicShader.frag" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,5 @@
 #pragma once
 
-#include "GLFW\glfw3.h"
-
-#include <iostream>
-
 #include "core.h"
 
 namespace mef
@@ -32,6 +28,16 @@ namespace mef
 		void createWindow(int w, int h, const char* title)
 		{
 			window = glfwCreateWindow(w, h, title, NULL, NULL);
+			if (!window)
+			{
+				std::cerr << "[MEFGL][ERROR] Failed Creating a Window!\n";
+				return;
+			}
+		}
+
+		void createWindow(const char* title)
+		{
+			window = glfwCreateWindow(width, height, title, NULL, NULL);
 			if (!window)
 			{
 				std::cerr << "[MEFGL][ERROR] Failed Creating a Window!\n";
@@ -71,6 +77,8 @@ namespace mef
 		{
 			glfwPollEvents();
 		}
+
+		GLFWwindow* getWin() { return window; }
 	};
 
 }

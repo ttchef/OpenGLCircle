@@ -21,7 +21,16 @@
   <ItemGroup>
     <ClInclude Include="mefGL.h" />
     <ClInclude Include="src\core.h" />
+    <ClInclude Include="src\mefUtils.h" />
     <ClInclude Include="src\mef_win.h" />
+    <ClInclude Include="src\rect.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\glad.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\BasicShader.frag" />
+    <None Include="src\BasicShader.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

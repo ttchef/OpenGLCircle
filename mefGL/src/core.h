@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glad/glad.h>
 #include "GLFW\glfw3.h"
 #include <iostream>
 
@@ -10,11 +11,34 @@ namespace mef
 		Core = GLFW_OPENGL_CORE_PROFILE, Any = GLFW_OPENGL_ANY_PROFILE, Compat = GLFW_OPENGL_COMPAT_PROFILE
 	};
 
+	enum class DRAW_MODE
+	{
+		STATIC = GL_STATIC_DRAW, DYNAMIC=GL_DYNAMIC_DRAW
+	};
+
+	enum class MEF_ENUM
+	{
+		MEF_FLOAT = GL_FLOAT, MEF_FALSE = GL_FALSE, MEF_TRUE = GL_TRUE, MEF_UNSIGNED_INT = GL_UNSIGNED_INT, MEF_UNSIGNED_BYTE = GL_UNSIGNED_BYTE
+	};
+
 	int initMef()
 	{
 		if (!glfwInit())
 		{
 			std::cerr << "[MEFGL][ERROR] Failed Initializing GLFW!\n";
+			return -1;
+		}
+
+
+	}
+
+	int initOpenGL(GLFWwindow* window)
+	{
+		glfwMakeContextCurrent(window);
+
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+		{
+			std::cerr << "[MEFGL][ERROR] Failed to initialize GLAD\n";
 			return -1;
 		}
 	}
@@ -25,4 +49,6 @@ namespace mef
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, (uint32_t)profile);
 	}
+
+	
 }
