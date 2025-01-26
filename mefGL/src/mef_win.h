@@ -4,46 +4,73 @@
 
 #include <iostream>
 
-class mef_win
+#include "core.h"
+
+namespace mef
 {
-private:
-	GLFWwindow* window;
-	int width;
-	int height;
-
-public:
-	mef_win()
-		: width(800), height(600) { }
-
-	mef_win(int w, int h)
-		: width(w), height(h) { }
-
-	~mef_win()
+	
+	class mef_win
 	{
-		glfwDestroyWindow(window);
-	}
-
-	void createWindow(int w, int h, const char* title)
-	{
-		window = glfwCreateWindow(w, h, title, NULL, NULL);
-		if (!window)
+	private:
+		GLFWwindow* window;
+		int width;
+		int height;
+	
+	public:
+		mef_win()
+			: width(800), height(600) 	{ }
+	
+		mef_win(int w, int h)
+			: width(w), height(h) { }
+	
+		~mef_win()
 		{
-			std::cerr << "[MEFGL][ERROR] Failed Creating a Window!\n";
-			return;
-		}
-	}
-
-
-	void setSize(int w, int h)
-	{
-		if (!window)
-		{
-			std::cerr << "[MEFGL][ERROR] Failed setting Window Size!\nYou dont have created a Window!\n";
-			return;
+			glfwDestroyWindow(window);
 		}
 
-		width = w;
-		height = h;
-		glfwSetWindowSize(window, width, height);
-	}
-};
+	
+		void createWindow(int w, int h, const char* title)
+		{
+			window = glfwCreateWindow(w, h, title, NULL, NULL);
+			if (!window)
+			{
+				std::cerr << "[MEFGL][ERROR] Failed Creating a Window!\n";
+				return;
+			}
+		}
+	
+		
+		void setSize(int w, int h)
+		{
+			if (!window)
+			{
+				std::cerr << "[MEFGL][ERROR] Failed setting Window Size!\nYou dont have created a Window!\n";
+				return;
+			}
+	
+			width = w;
+			height = h;
+			glfwSetWindowSize(window, width, height);
+		}
+
+		bool stayOpen()
+		{
+			if (glfwWindowShouldClose(window))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		void swapBuffers()
+		{
+			glfwSwapBuffers(window);
+		}
+
+		void handleEvents()
+		{
+			glfwPollEvents();
+		}
+	};
+
+}
