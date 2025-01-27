@@ -47,9 +47,14 @@ namespace mef
 		template<typename T>
 		void createVBO(T* data, size_t count, DRAW_MODE mode)
 		{
-			glGenBuffers(GL_ARRAY_BUFFER, &ID);
+			glGenBuffers(1, &ID);
 			glBindBuffer(GL_ARRAY_BUFFER, ID);
-			glBufferData(ID, sizeof(T) * count, data, mode);
+			glBufferData(GL_ARRAY_BUFFER, sizeof(T) * count, data, (GLenum)mode);
+		}
+		template<typename T>
+		void bufferData(T* data, size_t count, DRAW_MODE mode)
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(T) * count, data, (GLenum)mode);
 		}
 		void bind()
 		{
@@ -69,10 +74,16 @@ namespace mef
 		template<typename T>
 		void createEBO(T* data, size_t count, DRAW_MODE mode)
 		{
-			glGenBuffers(GL_ELEMENT_ARRAY_BUFFER, &ID);
+			glGenBuffers(1, &ID);
 			bind();
-			glBufferData(ID, sizeof(T) * count, data, mode);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(T) * count, data, (GLenum)mode);
 		}
+		template<typename T>
+		void bufferData(T* data, size_t count, DRAW_MODE mode)
+		{
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(T) * count, data, (GLenum)mode);
+		}
+
 		void bind()
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ID);

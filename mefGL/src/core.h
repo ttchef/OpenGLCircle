@@ -21,6 +21,11 @@ namespace mef
 		MEF_FLOAT = GL_FLOAT, MEF_FALSE = GL_FALSE, MEF_TRUE = GL_TRUE, MEF_UNSIGNED_INT = GL_UNSIGNED_INT, MEF_UNSIGNED_BYTE = GL_UNSIGNED_BYTE
 	};
 
+	enum class SYNC
+	{
+		UNLIMITED = 0, ON = 1
+	};
+
 	int initMef()
 	{
 		if (!glfwInit())
@@ -50,5 +55,19 @@ namespace mef
 		glfwWindowHint(GLFW_OPENGL_PROFILE, (uint32_t)profile);
 	}
 
+	void clearColorBuffer()
+	{
+		glClear(GL_COLOR_BUFFER_BIT);
+	}
+
+	void clearDepthBuffer()
+	{
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
+
+	void setVsync(mef::SYNC par)
+	{
+		glfwSwapInterval((int)par);
+	}
 	
 }

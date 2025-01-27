@@ -20,13 +20,20 @@ int main()
 	}
 
 	window.setSize(1920, 1080);
+	
+	mef::setVsync(mef::SYNC::UNLIMITED);
 
 	mef::mef_rect rect;
+	rect.createRect(0.5f, 0.5f);
+
 
 	while (window.stayOpen())
 	{
-		
+		mef::clearColorBuffer();
+		mef::clearDepthBuffer();
 
+
+		rect.draw();
 
 		window.swapBuffers();
 		window.handleEvents();
