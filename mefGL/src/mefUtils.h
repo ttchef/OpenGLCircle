@@ -219,6 +219,12 @@ namespace mef
 		{
 			glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix));
 		}
+		
+		void setVec2f(const std::string& name1, const std::string& name2, const glm::vec2& vec) const
+		{
+			glUniform1f(getUniformLocation(name1), vec.x);
+			glUniform1f(getUniformLocation(name2), vec.y);
+		}
 	};
 }
 

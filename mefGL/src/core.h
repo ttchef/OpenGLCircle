@@ -70,4 +70,21 @@ namespace mef
 		glfwSwapInterval((int)par);
 	}
 	
+	void setOpenGLViewport(int maxX, int maxY)
+	{
+		glViewport(0, 0, maxX, maxY);
+	}
+
+	void enableBlend(bool x)
+	{
+		if (x)
+		{
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		}
+		else
+		{
+			glDisable(GL_BLEND);
+		}
+	}
 }

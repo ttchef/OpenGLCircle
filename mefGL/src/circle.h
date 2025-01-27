@@ -6,13 +6,14 @@
 namespace mef
 {
 
-	class mef_rect
+	class mef_circle
 	{
 	private:
 		float width;
 		float height;
+		float radius;
 		glm::vec2 pos; // middle of rect
-		
+
 		mef_vao vao;
 		mef_vbo vbo;
 		mef_ebo ebo;
@@ -45,23 +46,30 @@ namespace mef
 			vbo.unbind();
 			ebo.unbind();
 
-			shader.createShader("../mefGL/src/BasicShader.vert", "../mefGL/src/BasicShader.frag");
+			shader.createShader("../mefGL/src/CircleShader.vert", "../mefGL/src/CircleShader.frag");
 		}
 
 	public:
-		mef_rect() : width(2.0f), height(2.0f), pos(glm::vec2(0.0f, 0.0f)) { }
-		mef_rect(float w, float h) : width(w), height(h), pos(glm::vec2(0.0f, 0.0f)) { }
+		mef_circle() : radius(1.0f), width(2.0f), height(2.0f), pos(glm::vec2(0.0f,0.0f)) { }
+		mef_circle(float r, glm::vec2 position) : radius(r), width(r*2), height(r*2), pos(position) { }
 
-		void createRect(float w, float h)
-		{	
-			width = w;
-			height = h;
+		void createCircle(float Nradius, glm::vec2 Npos)
+		{
+			width = Nradius * 2;
+			height = Nradius * 2;
+			radius = Nradius;
+			pos = Npos;
 			createRectR();
 		}
 
-		void draw()
+		void draw(mef_win& window)
 		{
 			shader.bind();
+
+			shader.setFloat("radius", radius);
+			shader.setVec2f("xPos", "yPos", pos);
+			shader.setVec2f("WinWidth", "WinHeight", glm::vec2(window.getWidth(), window.getHeight()));
+
 			vao.bind();
 
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
@@ -85,7 +93,7 @@ namespace mef
 
 			vao.bind();
 			vbo.bind();
-			
+
 			vbo.bufferData(vertices.data(), vertices.size(), DRAW_MODE::STATIC);
 			vbo.unbind();
 			vao.unbind();

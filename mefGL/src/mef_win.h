@@ -78,7 +78,14 @@ namespace mef
 			glfwPollEvents();
 		}
 
+		void update()
+		{
+
+		}
+
 		GLFWwindow* getWin() { return window; }
+		int getWidth() { return width; }
+		int getHeight() { return height; }
 	};
 
 }

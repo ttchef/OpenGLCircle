@@ -30,6 +30,9 @@
     <ClInclude Include="src\mefUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\glad.c">
@@ -39,5 +42,7 @@
   <ItemGroup>
     <None Include="src\BasicShader.vert" />
     <None Include="src\BasicShader.frag" />
+    <None Include="src\CircleShader.vert" />
+    <None Include="src\CircleShader.frag" />
   </ItemGroup>
 </Project>

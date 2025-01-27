@@ -20,11 +20,13 @@ int main()
 	}
 
 	window.setSize(1920, 1080);
+	mef::setOpenGLViewport(1920, 1080);
 	
 	mef::setVsync(mef::SYNC::UNLIMITED);
+	mef::enableBlend(true);
 
-	mef::mef_rect rect;
-	rect.createRect(0.5f, 0.5f);
+	mef::mef_circle circle;
+	circle.createCircle(0.5f, glm::vec2(0.0f, 0.0f));
 
 
 	while (window.stayOpen())
@@ -32,8 +34,9 @@ int main()
 		mef::clearColorBuffer();
 		mef::clearDepthBuffer();
 
+		window.update();
 
-		rect.draw();
+		circle.draw(window);
 
 		window.swapBuffers();
 		window.handleEvents();
